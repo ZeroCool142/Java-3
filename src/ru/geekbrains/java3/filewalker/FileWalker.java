@@ -6,14 +6,17 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.*;
 
+
+/**
+ * Write all .java files in subpackages in one .txt
+ *
+ */
 public class FileWalker {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         String path = args[0];
         File[] directories = new File(path).listFiles(File::isDirectory);
 
-
-        for (File dir :
-                directories) {
+        for (File dir : directories) {
             try (FileWriter fw = new FileWriter("dz_"+ dir.getName()+ ".txt")){
                 Files.find(Paths.get(dir.toString()), 999, (p, bfa) -> bfa.isRegularFile() &&
                         p.getFileName().toString().contains(".java")).forEach((file) ->{
