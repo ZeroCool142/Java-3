@@ -6,10 +6,10 @@ public class Tunnel extends Stage {
 
     private Semaphore semaphore;
 
-    public Tunnel(int carsCount) {
+    public Tunnel(int limit) {
         this.length = 80;
         this.description = "Тоннель " + length + " метров";
-        semaphore = new Semaphore(carsCount / 2, true);
+        semaphore = new Semaphore(limit, true);
     }
 
     @Override

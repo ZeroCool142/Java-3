@@ -11,7 +11,9 @@ package ru.geekbrains.java3.l5;
 // и добавлять объекты классов из пакета util.concurrent
 
 import java.util.ArrayList;
-import java.util.concurrent.*;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -26,7 +28,7 @@ public class MainClass {
     public static void main(String[] args) throws InterruptedException {
 
         System.out.println("ВАЖНОЕ ОБЪЯВЕНИЕ >>> Подготовка!!!");
-        Race race = new Race(new Road(60), new Tunnel(CARS_COUNT), new Road(40));
+        Race race = new Race(new Road(60), new Tunnel(CARS_COUNT / 2), new Road(40));
         for (int i = 0; i < CARS_COUNT; i++) {
             es.execute(new Car(race, 20 + (int) (Math.random() * 10), cdl));
         }
