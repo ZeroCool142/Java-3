@@ -10,14 +10,18 @@ package ru.geekbrains.java3.l5;
 // Можете корректировать классы(в т.ч. конструктор машин)
 // и добавлять объекты классов из пакета util.concurrent
 
+import java.util.ArrayList;
 import java.util.concurrent.*;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class MainClass {
     public static final int CARS_COUNT = 4;
 
     private static final ExecutorService es = Executors.newFixedThreadPool(CARS_COUNT);
     private static CountDownLatch cdl = new CountDownLatch(CARS_COUNT);
-    private static LinkedBlockingQueue<Car> resultTable = new LinkedBlockingQueue<>(CARS_COUNT);
+    private static ArrayList<Car> resultTable = new ArrayList<>(CARS_COUNT);
+    private static final Lock lock = new ReentrantLock();
 
     public static void main(String[] args) throws InterruptedException {
 
@@ -26,28 +30,25 @@ public class MainClass {
         for (int i = 0; i < CARS_COUNT; i++) {
             es.execute(new Car(race, 20 + (int) (Math.random() * 10), cdl));
         }
-        es.shutdown(); // No need new threads
+        es.shutdown(); // No need adding new threads
         cdl.await();
 
         System.out.println("ВАЖНОЕ ОБЪЯВЕНИЕ >>> Гонка началась!!!");
 
-        while (!es.isTerminated()); // waiting all cars finished race
+        while (!es.isTerminated()); // waiting all cars
 
         System.out.println("ВАЖНОЕ ОБЪЯВЕНИЕ >>> Гонка закончилась!!!");
 
         System.out.println("\nРЕЗУЛЬТАТЫ:");
-        int tbSize = resultTable.size();
-        for (int i = 0; i < tbSize; i++){
-            System.out.printf("%d: %s\n", i+1, resultTable.take().getName());
+        for (int i = 0; i < resultTable.size(); i++){
+            System.out.printf("%d: %s\n", i+1, resultTable.get(i).getName());
         }
     }
 
     public static void finish(Car car) {
+        lock.lock();
         System.out.println(car.getName() + " финишировал!");
-        try {
-            resultTable.put(car);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        resultTable.add(car);
+        lock.unlock();
     }
 }

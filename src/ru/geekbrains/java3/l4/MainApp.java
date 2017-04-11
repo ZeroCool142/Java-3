@@ -2,6 +2,7 @@ package ru.geekbrains.java3.l4;
 
 
 import java.io.IOException;
+import java.util.LinkedList;
 
 import static java.lang.Thread.sleep;
 
@@ -17,12 +18,14 @@ import static java.lang.Thread.sleep;
 */
 public class MainApp {
 
+
     public static void main(String[] args) throws InterruptedException {
         int abcCount = 5;
         ABCPrinter printer = new ABCPrinter();
         Thread t1 = new Thread(()->printer.printA(abcCount));
         Thread t2 = new Thread(()->printer.printB(abcCount));
         Thread t3 = new Thread(()->printer.printC(abcCount));
+        LinkedList<String> a = new LinkedList<>();
 
         t1.start();
         t2.start();
