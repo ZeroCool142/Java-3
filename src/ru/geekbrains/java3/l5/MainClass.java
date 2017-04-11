@@ -10,40 +10,44 @@ package ru.geekbrains.java3.l5;
 // Можете корректировать классы(в т.ч. конструктор машин)
 // и добавлять объекты классов из пакета util.concurrent
 
-import java.util.concurrent.BrokenBarrierException;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.CyclicBarrier;
+import java.util.concurrent.*;
 
 public class MainClass {
     public static final int CARS_COUNT = 4;
+
+    private static final ExecutorService es = Executors.newFixedThreadPool(CARS_COUNT);
     private static CountDownLatch cdl = new CountDownLatch(CARS_COUNT);
+    private static LinkedBlockingQueue<Car> resultTable = new LinkedBlockingQueue<>(CARS_COUNT);
 
     public static void main(String[] args) throws InterruptedException {
 
         System.out.println("ВАЖНОЕ ОБЪЯВЕНИЕ >>> Подготовка!!!");
         Race race = new Race(new Road(60), new Tunnel(CARS_COUNT), new Road(40));
-        Car[] cars = new Car[CARS_COUNT];
-        for (int i = 0; i < cars.length; i++) {
-            cars[i] = new Car(race, 20 + (int) (Math.random() * 10), cdl);
+        for (int i = 0; i < CARS_COUNT; i++) {
+            es.execute(new Car(race, 20 + (int) (Math.random() * 10), cdl));
         }
-        for (int i = 0; i < cars.length; i++) {
-            new Thread(cars[i]).start();
-        }
-
-
+        es.shutdown(); // No need new threads
         cdl.await();
+
         System.out.println("ВАЖНОЕ ОБЪЯВЕНИЕ >>> Гонка началась!!!");
-        cdl = new CountDownLatch(CARS_COUNT);
-        cdl.await();
+
+        while (!es.isTerminated()); // waiting all cars finished race
 
         System.out.println("ВАЖНОЕ ОБЪЯВЕНИЕ >>> Гонка закончилась!!!");
+
+        System.out.println("\nРЕЗУЛЬТАТЫ:");
+        int tbSize = resultTable.size();
+        for (int i = 0; i < tbSize; i++){
+            System.out.printf("%d: %s\n", i+1, resultTable.take().getName());
+        }
     }
 
-    public static void carPrepared(){
-        cdl.countDown();
-    }
-
-    public static void awaitFinishAll() {
-
+    public static void finish(Car car) {
+        System.out.println(car.getName() + " финишировал!");
+        try {
+            resultTable.put(car);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }
