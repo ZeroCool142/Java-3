@@ -21,6 +21,7 @@ public class FileWalker {
                         .forEach((file) -> {
 
                             try (FileInputStream dis = new FileInputStream(file.toFile())) {
+                                fw.writeBytes("//:~ " + file + "\r\n");
                                 while (dis.available() > 0) {
                                     fw.write(dis.read());
                                     fw.flush();
