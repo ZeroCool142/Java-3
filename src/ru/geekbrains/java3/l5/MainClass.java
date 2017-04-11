@@ -19,7 +19,7 @@ public class MainClass {
     public static final int CARS_COUNT = 4;
 
     private static final ExecutorService es = Executors.newFixedThreadPool(CARS_COUNT);
-    private static CountDownLatch cdl = new CountDownLatch(CARS_COUNT);
+    private static final CountDownLatch cdl = new CountDownLatch(CARS_COUNT);
     private static ArrayList<Car> resultTable = new ArrayList<>(CARS_COUNT);
     private static final Lock lock = new ReentrantLock();
 
@@ -30,7 +30,7 @@ public class MainClass {
         for (int i = 0; i < CARS_COUNT; i++) {
             es.execute(new Car(race, 20 + (int) (Math.random() * 10), cdl));
         }
-        es.shutdown(); // No need adding new threads
+        es.shutdown(); // Prevent execute new threads
         cdl.await();
 
         System.out.println("ВАЖНОЕ ОБЪЯВЕНИЕ >>> Гонка началась!!!");
@@ -40,8 +40,8 @@ public class MainClass {
         System.out.println("ВАЖНОЕ ОБЪЯВЕНИЕ >>> Гонка закончилась!!!");
 
         System.out.println("\nРЕЗУЛЬТАТЫ:");
-        for (int i = 0; i < resultTable.size(); i++){
-            System.out.printf("%d: %s\n", i+1, resultTable.get(i).getName());
+        for (int i = 0; i < resultTable.size(); i++) {
+            System.out.printf("%d: %s\n", i + 1, resultTable.get(i).getName());
         }
     }
 
