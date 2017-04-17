@@ -14,7 +14,9 @@ public class FileWalker {
         File[] directories = new File(path).listFiles(File::isDirectory);
 
         for (File dir : directories) {
-            try (DataOutputStream fw = new DataOutputStream(new FileOutputStream("dz_" + dir.getName() + ".txt"))) {
+            File outputFile = new File("dz_" + dir.getName() + ".txt");
+            if (outputFile.exists()) continue;
+            try (DataOutputStream fw = new DataOutputStream(new FileOutputStream(outputFile))) {
                 Files.find(Paths.get(dir.toString()), 999,
                         (p, bfa) -> bfa.isRegularFile() && p.getFileName().toString().contains(".java"))
                         .forEach((file) -> {
