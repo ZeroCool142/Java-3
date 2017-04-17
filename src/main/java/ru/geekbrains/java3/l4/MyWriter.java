@@ -11,20 +11,20 @@ public class MyWriter implements Closeable {
     private Random random = new Random();
     private FileWriter fw;
 
-    public MyWriter(String fileName) throws IOException{
-            fw = new FileWriter(fileName);
+    public MyWriter(String fileName) throws IOException {
+        fw = new FileWriter(fileName);
     }
 
     public void write(int countLines) {
-        synchronized (this){
+        synchronized (this) {
             count++;
             int threadNumber = count;
-            for (int i = 0; i < countLines; i++){
+            for (int i = 0; i < countLines; i++) {
                 try {
-                    fw.write(threadNumber+ "-> "+ random.nextInt() + "\n");
+                    fw.write(threadNumber + "-> " + random.nextInt() + "\n");
                     fw.flush();
                     wait(200);
-                } catch (IOException | InterruptedException e){
+                } catch (IOException | InterruptedException e) {
                     e.printStackTrace();
                 }
 
@@ -34,7 +34,7 @@ public class MyWriter implements Closeable {
     }
 
     @Override
-    public void close() throws IOException{
+    public void close() throws IOException {
         fw.close();
     }
 }

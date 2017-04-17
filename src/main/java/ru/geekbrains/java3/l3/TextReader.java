@@ -58,20 +58,16 @@ public class TextReader {
                             curPage++;
                             printPage(f, curPage);
                         }
-                    }
-                    else if (command.startsWith("p")) {
+                    } else if (command.startsWith("p")) {
                         if (curPage > 0) {
                             curPage--;
                             printPage(f, curPage);
                         }
-                    }
-                    else if (command.startsWith("h")) {
+                    } else if (command.startsWith("h")) {
                         workingWithFileHelp();
-                    }
-                    else if (command.startsWith("e")) {
+                    } else if (command.startsWith("e")) {
                         return;
-                    }
-                    else {
+                    } else {
                         try {
                             int temp = Integer.parseInt(command);
                             if (temp >= 0 && temp <= maxPage) {

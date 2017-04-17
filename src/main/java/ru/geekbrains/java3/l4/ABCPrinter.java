@@ -4,10 +4,10 @@ package ru.geekbrains.java3.l4;
 public class ABCPrinter {
     private volatile char currentLetter = 'A';
 
-    public void printA(int count){
-        synchronized (this){
-            try{
-                for (int i = 0; i < count; i++){
+    public void printA(int count) {
+        synchronized (this) {
+            try {
+                for (int i = 0; i < count; i++) {
                     while (currentLetter != 'A') {
                         this.wait();
                     }
@@ -15,15 +15,16 @@ public class ABCPrinter {
                     currentLetter = 'B';
                     this.notifyAll();
                 }
-            } catch (InterruptedException e){
+            } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
     }
-    public void printB(int count){
-        synchronized (this){
-            try{
-                for (int i = 0; i < count; i++){
+
+    public void printB(int count) {
+        synchronized (this) {
+            try {
+                for (int i = 0; i < count; i++) {
                     while (currentLetter != 'B') {
                         this.wait();
                     }
@@ -31,15 +32,16 @@ public class ABCPrinter {
                     currentLetter = 'C';
                     this.notifyAll();
                 }
-            } catch (InterruptedException e){
+            } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
     }
-    public void printC(int count){
-        synchronized (this){
-            try{
-                for (int i = 0; i < count; i++){
+
+    public void printC(int count) {
+        synchronized (this) {
+            try {
+                for (int i = 0; i < count; i++) {
                     while (currentLetter != 'C') {
                         this.wait();
                     }
@@ -47,7 +49,7 @@ public class ABCPrinter {
                     currentLetter = 'A';
                     this.notifyAll();
                 }
-            } catch (InterruptedException e){
+            } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }

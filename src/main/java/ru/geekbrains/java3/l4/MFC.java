@@ -52,7 +52,7 @@ public class MFC extends Thread {
                     try {
                         document = printerQueue.take();
                         for (int i = 0; i < document.getPages(); i++) {
-                            System.out.format("Printer-> Document #%d: Printed %d pages\n", printed+1,i+1);
+                            System.out.format("Printer-> Document #%d: Printed %d pages\n", printed + 1, i + 1);
                             sleep(200);
                         }
                         printed++;
@@ -76,7 +76,7 @@ public class MFC extends Thread {
                     try {
                         document = scannerQueue.take();
                         for (int i = 0; i < document.getPages(); i++) {
-                            System.out.format("Scanner-> Document #%d: Scanned %d pages\n", scanned+1,i+1);
+                            System.out.format("Scanner-> Document #%d: Scanned %d pages\n", scanned + 1, i + 1);
                             sleep(200);
                         }
                         scanned++;

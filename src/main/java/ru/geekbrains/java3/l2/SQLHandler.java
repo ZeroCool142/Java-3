@@ -17,14 +17,14 @@ public class SQLHandler implements AutoCloseable {
      * id_товара 3 товар3 30
      * ...
      * id_товара 10000 товар10000 100010
-     *
+     * <p>
      * 3. Написать консольное приложение, которое позволяет узнать цену товара по его имени, либо
      * вывести сообщение "Такого товара нет" если товара не в базе.
      * Консольная команда: "/цена товар545"
-     *
+     * <p>
      * 4. Добавить возможность изменения цены товара (указываем имя товара и новую цену).
      * Консольная команда: "/сменитьцену товар10 10000"
-     *
+     * <p>
      * 5. Вывести товары в заданном ценовом диапазоне. Консольная команда: "/товарыпоцене 100 600"
      */
     private Connection connection;
@@ -41,9 +41,9 @@ public class SQLHandler implements AutoCloseable {
         goodPrice = connection.prepareStatement("SELECT cost FROM products WHERE title=?;");
         updatePrice = connection.prepareStatement("UPDATE products SET cost = ? WHERE title = ?;");
         goodsInPriceRange = connection.prepareStatement("SELECT good_id, title, cost " +
-                                                        "FROM products " +
-                                                        "WHERE cost >= ? AND cost <= ? " +
-                                                        "ORDER BY cost;");
+                "FROM products " +
+                "WHERE cost >= ? AND cost <= ? " +
+                "ORDER BY cost;");
     }
 
 

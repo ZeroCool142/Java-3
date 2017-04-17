@@ -7,7 +7,7 @@ public class Document {
         return pages;
     }
 
-    public Document(int pages){
+    public Document(int pages) {
         this.pages = pages;
     }
 

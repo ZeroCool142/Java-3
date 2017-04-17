@@ -7,7 +7,6 @@ import java.nio.file.Paths;
 
 /**
  * Write all .java files in subpackages in one .txt
- *
  */
 public class FileWalker {
     public static void main(String[] args) {
@@ -30,8 +29,7 @@ public class FileWalker {
                                 e.printStackTrace();
                             }
                         });
-            }
-            catch (IOException e){
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         }

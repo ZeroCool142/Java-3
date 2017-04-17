@@ -37,7 +37,7 @@ public class MainClass {
 
         System.out.println("ВАЖНОЕ ОБЪЯВЕНИЕ >>> Гонка началась!!!");
 
-        while (!es.isTerminated()); // waiting all cars
+        while (!es.isTerminated()) ; // waiting all cars
 
         System.out.println("ВАЖНОЕ ОБЪЯВЕНИЕ >>> Гонка закончилась!!!");
 
