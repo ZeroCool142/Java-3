@@ -1,5 +1,8 @@
 package ru.geekbrains.java3.l7;
 
+import ru.geekbrains.java3.l7.testengine.TestEngine;
+import ru.geekbrains.java3.l7.testengine.tests.SecondTest;
+
 /**
  * Создать класс, который может выполнять «тесты», в качестве тестов выступают классы с наборами
  * методов с аннотациями @Test. Для этого у него должен быть статический метод start(), которому в
@@ -12,4 +15,10 @@ package ru.geekbrains.java3.l7;
  * экземпляре, иначе необходимо бросить RuntimeException при запуске «тестирования».
  */
 public class MainApp {
+    public static void main(String[] args) {
+        System.out.println("Parametrized test:");
+        TestEngine.start("ru.geekbrains.java3.l7.testengine.tests.ParametrizedTest");
+        System.out.println("Second test:");
+        TestEngine.start(SecondTest.class);
+    }
 }
