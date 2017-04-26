@@ -22,33 +22,30 @@ public class TestEngine {
     private static Object[][] parameters;
 
     public static void start(Class c) {
-        cls = c;
-        init();
-        startTest();
+        startTest(c);
     }
 
 
     public static void start(String className) {
         try {
-            cls = Class.forName(className);
-            init();
-            startTest();
-        } catch (Exception e) {
-            throw new RuntimeException();
-        } finally {
-            parameters = null;
+            startTest(Class.forName(className));
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
         }
-
     }
 
-    private static void startTest() {
+    private static void startTest(Class c) {
+        cls = c;
         try {
+            init();
             if (parameters != null) parametrizedTest();
             else simpleTest(cls.newInstance());
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
             parameters = null;
+            after = null;
+            before = null;
         }
     }
 
