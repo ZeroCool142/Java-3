@@ -6,7 +6,6 @@ import ru.geekbrains.java3.l7.annotation.MyParams;
 import ru.geekbrains.java3.l7.annotation.MyTest;
 
 import java.lang.annotation.Annotation;
-import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Arrays;
@@ -49,12 +48,14 @@ public class TestEngine {
         }
     }
 
-    private static void parametrizedTest() throws Exception {
-        Constructor c;
-        for (int i = 0; i < parameters.length; i++) {
-            Class[] types = Arrays.stream(parameters[i]).map(Object::getClass).toArray(size -> new Class[size]);
-            c = cls.getConstructor(types);
-            simpleTest(c.newInstance(parameters[i]));
+    private static void parametrizedTest() {
+        for (Object[] parameter : parameters) {
+            Class[] types = Arrays.stream(parameter).map(Object::getClass).toArray(size -> new Class[size]);
+            try {
+                simpleTest(cls.getConstructor(types).newInstance(parameter));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
