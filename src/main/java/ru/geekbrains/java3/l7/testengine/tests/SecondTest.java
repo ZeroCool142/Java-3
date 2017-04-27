@@ -17,6 +17,11 @@ public class SecondTest {
         mfc = new MyFancyClass();
     }
 
+    @AfterSuite
+    public void after() {
+        System.out.println("@AfterSuit");
+    }
+
     @MyTest(exception = RuntimeException.class,
             priority = 10)
     public void ckArr2() {
@@ -25,7 +30,7 @@ public class SecondTest {
 
     @MyTest
     public void divisionDoubleByZero() {
-        Assert.assertEquals(Double.POSITIVE_INFINITY, mfc.div(5d, 0), 0.0001);
+        Assert.assertEquals(Double.POSITIVE_INFINITY, mfc.div(5, 0), 0.0001);
     }
 
     @MyTest(priority = 3)
@@ -41,10 +46,5 @@ public class SecondTest {
     @MyTest
     public void alwaysFail() {
         throw new AssertionError("It's ok!");
-    }
-
-    @AfterSuite
-    public void after() {
-        System.out.println("@AfterSuit");
     }
 }

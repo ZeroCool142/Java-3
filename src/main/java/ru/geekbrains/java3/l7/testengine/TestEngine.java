@@ -98,8 +98,8 @@ public class TestEngine {
                         e.printStackTrace();
                     }
                 }
+                if (bs > 1 || as > 1) throw new RuntimeException("Multiple define in " + cls.getName());
             }
-            if (bs > 1 || as > 1) throw new RuntimeException("Multiple define in " + cls.getName());
         }
         tests.sort((o1, o2) -> {
             int prio1 = o1.getDeclaredAnnotation(MyTest.class).priority();

@@ -1,6 +1,7 @@
 package ru.geekbrains.java3.l7;
 
 import ru.geekbrains.java3.l7.testengine.TestEngine;
+import ru.geekbrains.java3.l7.testengine.tests.ParametrizedSecondTest;
 import ru.geekbrains.java3.l7.testengine.tests.SecondTest;
 
 /**
@@ -20,5 +21,7 @@ public class MainApp {
         TestEngine.start("ru.geekbrains.java3.l7.testengine.tests.ParametrizedTest");
         System.out.println("Second test:");
         TestEngine.start(SecondTest.class);
+        System.out.println("Third test:");
+        TestEngine.start(ParametrizedSecondTest.class);
     }
 }
