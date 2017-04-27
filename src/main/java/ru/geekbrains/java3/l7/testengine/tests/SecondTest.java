@@ -47,4 +47,8 @@ public class SecondTest {
     public void alwaysFail() {
         throw new AssertionError("It's ok!");
     }
+
+    @MyTest(exception = RuntimeException.class)
+    public void test() {
+    }
 }
